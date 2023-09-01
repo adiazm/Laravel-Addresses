@@ -21,7 +21,7 @@ and run `composer update` or both in one with `composer require adiazm/laravel-a
 ## Configuration & Migration
 
 ```bash
-php artisan vendor:publish --provider="Webpatser\Countries\CountriesServiceProvider"
+php artisan vendor:publish --provider="Admsys\Countries\CountriesServiceProvider"
 php artisan vendor:publish --provider="Adiazm\Addresses\AddressesServiceProvider"
 ```
 
