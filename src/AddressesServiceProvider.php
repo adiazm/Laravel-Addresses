@@ -13,18 +13,6 @@ class AddressesServiceProvider extends ServiceProvider
     protected array $migrations = [
         'CreateAddressesTable' => 'create_addresses_table',
         'CreateContactsTable'  => 'create_contacts_table',
-
-        'AddStreetExtraToAddressesTable' => 'add_street_extra_to_addresses_table',
-        'AddGenderToContactsTable'       => 'add_gender_to_contacts_table',
-        'AddTitleToContactsTable'        => 'add_title_to_contacts_table',
-
-        'AddPropertiesToAddressesTable' => 'add_properties_to_addresses_table',
-        'AddPropertiesToContactsTable'  => 'add_properties_to_contacts_table',
-
-        'AddUserIdToAddressesTable'          => 'add_user_id_to_addresses_table',
-        'AddUuidToAddressesAndContactsTable' => 'add_uuid_to_addresses_and_contacts_table',
-        'AddVatIdToContactsTable'            => 'add_vat_id_to_contacts_table',
-        'AddEmailInvoiceToContactsTable'     => 'add_email_invoice_to_contacts_table',
     ];
 
     public function boot()
