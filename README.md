@@ -12,11 +12,11 @@ Require the package from your `composer.json` file
 
 ```php
 "require": {
-	"adiazm/laravel-addresses": "^1.1"
+	"adiazm/laravel-addresses": "^1.2"
 }
 ```
 
-and run `$ composer update` or both in one with `$ composer require adiazm/laravel-addresses`.
+and run `composer update` or both in one with `composer require adiazm/laravel-addresses`.
 
 ## Configuration & Migration
 
