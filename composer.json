@@ -1,6 +1,7 @@
 {
     "name": "adiazm/laravel-addresses",
     "description": "Simple address and contact management for Laravel.",
+    "version": "1.2.0",
     "homepage": "https://github.com/adiazm/Laravel-Addresses",
     "license": "MIT",
     "type": "library",
