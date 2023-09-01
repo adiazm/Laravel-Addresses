@@ -15,6 +15,11 @@
             "name": "Alexander Manfred Poellmann",
             "homepage": "https://twitter.com/AMPoellmann",
             "role": "developer"
+        },
+        {
+            "name": "adiazm",
+            "homepage": "https://admsys.cl",
+            "role": "developer"
         }
     ],
     "require": {
@@ -22,7 +27,7 @@
         "ext-json": "*",
         "illuminate/database": "^9.0|^10.0",
         "illuminate/support": "^9.0|^10.0",
-        "webpatser/laravel-countries": "^1.5",
+        "admsys/laravel-countries": "^1.5",
         "webpatser/laravel-uuid": "^3.0|^4.0"
     },
     "require-dev": {
