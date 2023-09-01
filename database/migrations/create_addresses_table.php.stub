@@ -52,10 +52,7 @@ class CreateAddressesTable extends Migration
             $table->text('properties')->nullable();
 
             $table->nullableMorphs('addressable');
-            $table->integer('user_id')->nullable()->unsigned()->index();
-            $table->foreign('user_id')
-                  ->references('id')
-                  ->on($this->table_users);
+            $table->foreignId('user_id')->constrained();
 
             foreach(config('address-config.addresses.flags', ['public', 'primary', 'billing', 'shipping']) as $flag) {
                 $table->boolean('is_'. $flag)->default(false)->index();
