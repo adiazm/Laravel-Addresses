@@ -22,6 +22,7 @@ class CreateAddressesTable extends Migration
     public function __construct()
     {
         $this->table = config('address-config.addresses.table', 'addresses');
+        $this->table_users = config('address-config.tables.users.main', 'users');
     }
 
     /**
