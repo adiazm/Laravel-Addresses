@@ -21,15 +21,15 @@ and run `$ composer update` or both in one with `$ composer require adiazm/larav
 ## Configuration & Migration
 
 ```bash
-$ php artisan vendor:publish --provider="Webpatser\Countries\CountriesServiceProvider"
-$ php artisan vendor:publish --provider="Adiazm\Addresses\AddressesServiceProvider"
+php artisan vendor:publish --provider="Webpatser\Countries\CountriesServiceProvider"
+php artisan vendor:publish --provider="Adiazm\Addresses\AddressesServiceProvider"
 ```
 
 This will publish a `config/countries.php`, a `config/address-config.php` and some migration files, that you'll have to run:
 
 ```bash
-$ php artisan countries:migration
-$ php artisan migrate
+php artisan countries:migration
+php artisan migrate
 ```
 
 For migrations to be properly published ensure that you have added the directory `database/migrations` to the classmap in your projects `composer.json`.
