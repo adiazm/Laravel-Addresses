@@ -2,18 +2,17 @@
 
 namespace Adiazm\Addresses\Traits;
 
+use Adiazm\Addresses\Exceptions\FailedValidationException;
+use Adiazm\Addresses\Models\Contact;
 use Exception;
 use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
-use Illuminate\Database\Eloquent\Collection;
-
-use Adiazm\Addresses\Models\Contact;
-use Adiazm\Addresses\Exceptions\FailedValidationException;
 
 /**
  * Class HasContacts
- * @package Adiazm\Addresses\Traits
+ *
  * @property Collection|Contact[]  $contacts
  */
 trait HasContacts
@@ -48,8 +47,9 @@ trait HasContacts
     /** @throws Exception */
     public function deleteContact(Contact $contact): bool
     {
-        if ($this !== $contact->contactable()->first())
+        if ($this !== $contact->contactable()->first()) {
             return false;
+        }
 
         return $contact->delete();
     }
@@ -67,7 +67,7 @@ trait HasContacts
 
         if ($validator->fails()) {
             $errors = $validator->errors()->all();
-            $error  = '[Addresses] '. implode(' ', $errors);
+            $error = '[Addresses] '.implode(' ', $errors);
 
             throw new FailedValidationException($error);
         }
@@ -75,7 +75,7 @@ trait HasContacts
         return $attributes;
     }
 
-    function validateContact(array $attributes): Validator
+    public function validateContact(array $attributes): Validator
     {
         $rules = Contact::getValidationRules();
 

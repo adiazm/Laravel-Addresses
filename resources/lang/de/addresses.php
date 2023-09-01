@@ -4,19 +4,19 @@ return [
 
     'title' => 'Adresse|Adressen',
 
-    'all'    => 'Alle Adressen',
+    'all' => 'Alle Adressen',
     'browse' => 'Alle Adressen ansehen',
     'latest' => 'Neueste Adressen',
-    'view'   => 'Adresse ansehen|Adressen ansehen',
-    'new'    => 'Neue Adresse|Neue Adressen',
-    'none'   => 'Keine Adresse hinterlegt',
+    'view' => 'Adresse ansehen|Adressen ansehen',
+    'new' => 'Neue Adresse|Neue Adressen',
+    'none' => 'Keine Adresse hinterlegt',
     'search' => 'Adresse suchen|Adressen suchen',
 
     'ajax-search' => 'Bitte Adresse eingeben...',
 
     'autocomplete' => [
         'placeholder' => 'Adresse eintippen um Vorschläge zu laden...',
-        'reset'       => 'zurücksetzen',
+        'reset' => 'zurücksetzen',
     ],
 
     'primary' => [
@@ -25,35 +25,35 @@ return [
 
     'billing' => [
         'title' => 'Rechnungsadresse|Rechnungsadressen',
-        'new'   => 'Neue Rechnungsadresse|Neue Rechnungsadressen',
+        'new' => 'Neue Rechnungsadresse|Neue Rechnungsadressen',
     ],
 
     'shipping' => [
         'title' => 'Lieferadresse|Lieferadressen',
-        'new'   => 'Neue Lieferadresse|Neue Lieferadressen',
+        'new' => 'Neue Lieferadresse|Neue Lieferadressen',
 
         'same-as-billing' => 'Lieferadresse entspricht Rechnungsadresse',
     ],
 
     'delivery' => [
         'title' => 'Zustelladresse|Zustelladressen',
-        'new'   => 'Neue Zustelladresse|Neue Zustelladressen',
+        'new' => 'Neue Zustelladresse|Neue Zustelladressen',
 
         'same-as-billing' => 'Zustelladresse entspricht Rechnungsadresse',
     ],
 
     'fields' => [
-        'street'     => 'Straße & Hausnummer',
-        'post_code'  => 'PLZ',
-        'city'       => 'Stadt',
-        'state'      => 'Land',
-        'country'    => 'Staat',
+        'street' => 'Straße & Hausnummer',
+        'post_code' => 'PLZ',
+        'city' => 'Stadt',
+        'state' => 'Land',
+        'country' => 'Staat',
 
         'notes' => 'Anmerkung|Anmerkungen',
 
-        'route'         => 'Straße',
+        'route' => 'Straße',
         'street_number' => 'Hausnummer',
-        'street_extra'  => 'Zusätzliche Adressinfos',
+        'street_extra' => 'Zusätzliche Adressinfos',
     ],
 
 ];

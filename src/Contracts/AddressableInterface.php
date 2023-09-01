@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 /**
  * Interface AddressableInterface
- * @package Adiazm\Addresses\Contracts
  */
 interface AddressableInterface
 {

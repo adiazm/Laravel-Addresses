@@ -2,6 +2,7 @@
 
 namespace Adiazm\Addresses\Models;
 
+use Adiazm\Addresses\Traits\HasCountry;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -10,14 +11,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-use Adiazm\Addresses\Traits\HasCountry;
-
 /**
  * Class Address
- * @package Adiazm\Addresses\Models
  *
  * @property-read int  $id
- *
  * @property string|null  $street
  * @property string|null  $street_extra
  * @property string|null  $city
@@ -27,12 +24,10 @@ use Adiazm\Addresses\Traits\HasCountry;
  * @property array|null   $properties
  * @property string|null  $lat
  * @property string|null  $lng
- *
  * @property-read string  $country_name
  * @property-read string  $country_code
  * @property-read string  $route
  * @property-read string  $street_number
- *
  * @property-read Model|null            $addressable
  * @property-read Collection|Contact[]  $contacts
  * @property-read Model|null            $user
@@ -46,7 +41,7 @@ class Address extends Model
     use HasCountry;
     use SoftDeletes;
 
-    /** @inheritdoc */
+    /** {@inheritdoc} */
     protected $fillable = [
         'street',
         'street_extra',
@@ -66,14 +61,14 @@ class Address extends Model
         'user_id',
     ];
 
-    /** @inheritdoc */
+    /** {@inheritdoc} */
     protected $casts = [
         'properties' => 'array',
 
         'deleted_at' => 'datetime',
     ];
 
-    /** @inheritdoc */
+    /** {@inheritdoc} */
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
@@ -82,28 +77,30 @@ class Address extends Model
         $this->updateFillables();
     }
 
-    /** @inheritdoc */
+    /** {@inheritdoc} */
     public static function boot()
     {
         parent::boot();
 
         static::creating(function ($model) {
             if ($model->getConnection()
-                      ->getSchemaBuilder()
-                      ->hasColumn($model->getTable(), 'uuid'))
+                ->getSchemaBuilder()
+                ->hasColumn($model->getTable(), 'uuid')) {
                 $model->uuid = \Webpatser\Uuid\Uuid::generate()->string;
+            }
         });
 
-        static::saving(function($address) {
-            if (config('address-config.addresses.geocode', false))
+        static::saving(function ($address) {
+            if (config('address-config.addresses.geocode', false)) {
                 $address->geocode();
+            }
         });
     }
 
     private function updateFillables(): void
     {
         $fillable = $this->fillable;
-        $columns  = preg_filter('/^/', 'is_', config('address-config.addresses.columns', ['public', 'primary', 'billing', 'shipping']));
+        $columns = preg_filter('/^/', 'is_', config('address-config.addresses.columns', ['public', 'primary', 'billing', 'shipping']));
 
         $this->fillable(array_merge($fillable, $columns));
     }
@@ -126,26 +123,28 @@ class Address extends Model
     public static function getValidationRules(): array
     {
         $rules = config('address-config.addresses.rules', [
-            'street'       => 'required|string|min:3|max:60',
+            'street' => 'required|string|min:3|max:60',
             'street_extra' => 'nullable|string|min:3|max:60',
-            'city'         => 'required|string|min:3|max:60',
-            'state'        => 'nullable|string|min:3|max:60',
-            'post_code'    => 'required|min:4|max:10|AlphaDash',
-            'country_id'   => 'required|integer',
+            'city' => 'required|string|min:3|max:60',
+            'state' => 'nullable|string|min:3|max:60',
+            'post_code' => 'required|min:4|max:10|AlphaDash',
+            'country_id' => 'required|integer',
         ]);
 
-        foreach (config('address-config.addresses.flags', ['public', 'primary', 'billing', 'shipping']) as $flag)
+        foreach (config('address-config.addresses.flags', ['public', 'primary', 'billing', 'shipping']) as $flag) {
             $rules['is_'.$flag] = 'boolean';
+        }
 
         return $rules;
     }
 
     public function geocode(): self
     {
-        if (! ($query = $this->getQueryString()))
+        if (! ($query = $this->getQueryString())) {
             return $this;
+        }
 
-        $url = 'https://maps.google.com/maps/api/geocode/json?address='. $query .'&sensor=false';
+        $url = 'https://maps.google.com/maps/api/geocode/json?address='.$query.'&sensor=false';
 
         if ($geocode = file_get_contents($url)) {
             $output = json_decode($geocode);
@@ -164,11 +163,11 @@ class Address extends Model
     public function getQueryString(): string
     {
         $query = [];
-        $query[] = $this->street       ?: '';
-    //  $query[] = $this->street_extra ?: '';
-        $query[] = $this->city         ?: '';
-        $query[] = $this->state        ?: '';
-        $query[] = $this->post_code    ?: '';
+        $query[] = $this->street ?: '';
+        //  $query[] = $this->street_extra ?: '';
+        $query[] = $this->city ?: '';
+        $query[] = $this->state ?: '';
+        $query[] = $this->post_code ?: '';
         $query[] = $this->country_name ?: '';
 
         $query = trim(implode(',', array_filter($query)));
@@ -181,67 +180,75 @@ class Address extends Model
         $address = $two = [];
 
         $two[] = $this->post_code ?: '';
-        $two[] = $this->city      ?: '';
-        $two[] = $this->state     ? '('. $this->state .')' : '';
+        $two[] = $this->city ?: '';
+        $two[] = $this->state ? '('.$this->state.')' : '';
 
-        $address[] = $this->street       ?: '';
+        $address[] = $this->street ?: '';
         $address[] = $this->street_extra ?: '';
         $address[] = implode(' ', array_filter($two));
         $address[] = $this->country_name ?: '';
 
-        if (count($address = array_filter($address)) > 0)
+        if (count($address = array_filter($address)) > 0) {
             return $address;
+        }
 
         return [];
     }
 
     public function getHtml(): string
     {
-        if ($address = $this->getArray())
-            return '<address>'. implode('<br />', array_filter($address)) .'</address>';
+        if ($address = $this->getArray()) {
+            return '<address>'.implode('<br />', array_filter($address)).'</address>';
+        }
 
         return '';
     }
 
     public function getLine(string $glue = ', '): string
     {
-        if ($address = $this->getArray())
+        if ($address = $this->getArray()) {
             return implode($glue, array_filter($address));
+        }
 
         return '';
     }
 
     public function getCountryNameAttribute(): string
     {
-        if ($this->country)
+        if ($this->country) {
             return $this->country->name;
+        }
 
         return '';
     }
 
     public function getCountryCodeAttribute(?int $digits = 2): string
     {
-        if (! $this->country)
+        if (! $this->country) {
             return '';
+        }
 
-        if ($digits === 3)
+        if ($digits === 3) {
             return $this->country->iso_3166_3;
+        }
 
         return $this->country->iso_3166_2;
     }
 
     public function getRouteAttribute(): string
     {
-        if (preg_match('/(\D+)\s?(.+)/i', $this->street, $result))
+        if (preg_match('/(\D+)\s?(.+)/i', $this->street, $result)) {
             return $result[1];
+        }
 
         return '';
     }
 
     public function getStreetNumberAttribute(): string
     {
-        if (preg_match('/(\D+)\s?(.+)/i', $this->street, $result))
+        if (preg_match('/(\D+)\s?(.+)/i', $this->street, $result)) {
             return $result[2];
+        }
 
         return '';
     }

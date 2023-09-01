@@ -9,10 +9,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class Contact
- * @package Adiazm\Addresses\Models
  *
  * @property-read int  $id
- *
  * @property string|null   $gender
  * @property string|null   $title
  * @property string|null   $first_name
@@ -31,10 +29,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string|null   $notes
  * @property array|null    $properties
  * @property int|null      $address_id
- *
  * @property-read string  $full_name
  * @property-read string  $full_name_rev
- *
  * @property-read Model|null    $contactable
  * @property-read Address|null  $address
  */
@@ -42,7 +38,7 @@ class Contact extends Model
 {
     use SoftDeletes;
 
-    /** @inheritdoc */
+    /** {@inheritdoc} */
     protected $fillable = [
         'gender',
         'title',
@@ -72,14 +68,14 @@ class Contact extends Model
         'contactable_type',
     ];
 
-    /** @inheritdoc */
+    /** {@inheritdoc} */
     protected $casts = [
         'properties' => 'array',
 
         'deleted_at' => 'datetime',
     ];
 
-    /** @inheritdoc */
+    /** {@inheritdoc} */
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
@@ -88,23 +84,24 @@ class Contact extends Model
         $this->updateFillables();
     }
 
-    /** @inheritdoc */
+    /** {@inheritdoc} */
     protected static function boot()
     {
         parent::boot();
 
         static::creating(function ($model) {
             if ($model->getConnection()
-                      ->getSchemaBuilder()
-                      ->hasColumn($model->getTable(), 'uuid'))
+                ->getSchemaBuilder()
+                ->hasColumn($model->getTable(), 'uuid')) {
                 $model->uuid = \Webpatser\Uuid\Uuid::generate()->string;
+            }
         });
     }
 
     private function updateFillables(): void
     {
         $fillable = $this->fillable;
-        $columns  = preg_filter('/^/', 'is_', config('address-config.addresses.columns', ['public', 'primary', 'billing', 'shipping']));
+        $columns = preg_filter('/^/', 'is_', config('address-config.addresses.columns', ['public', 'primary', 'billing', 'shipping']));
 
         $this->fillable(array_merge($fillable, $columns));
     }
@@ -124,29 +121,29 @@ class Contact extends Model
         return config('address-config.contacts.rules', []);
     }
 
-    public function getFullNameAttribute(?bool $show_salutation = null): string
+    public function getFullNameAttribute(bool $show_salutation = null): string
     {
         $show_salutation = (bool) $show_salutation;
 
         $names = [];
-        $names[] = $show_salutation && $this->gender ? trans('addresses::contacts.salutation.'. $this->gender) : '';
-        $names[] = $this->first_name  ?: '';
+        $names[] = $show_salutation && $this->gender ? trans('addresses::contacts.salutation.'.$this->gender) : '';
+        $names[] = $this->first_name ?: '';
         $names[] = $this->middle_name ?: '';
-        $names[] = $this->last_name   ?: '';
+        $names[] = $this->last_name ?: '';
 
         return trim(implode(' ', array_filter($names)));
     }
 
-    public function getFullNameRevAttribute(?bool $show_salutation = null): string
+    public function getFullNameRevAttribute(bool $show_salutation = null): string
     {
         $first = [];
-        $first[] = $this->first_name  ?: '';
+        $first[] = $this->first_name ?: '';
         $first[] = $this->middle_name ?: '';
 
         $show_salutation = (bool) $show_salutation;
 
         $last = [];
-        $last[] = $show_salutation && $this->gender ? trans('addresses::contacts.salutation.'. $this->gender) : '';
+        $last[] = $show_salutation && $this->gender ? trans('addresses::contacts.salutation.'.$this->gender) : '';
         $last[] = $this->last_name ?: '';
 
         $names = [];

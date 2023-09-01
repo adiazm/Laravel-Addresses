@@ -2,16 +2,15 @@
 
 namespace Adiazm\Addresses\Traits;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Collection;
-
 use Adiazm\Addresses\Models\Address;
 use Adiazm\Addresses\Models\Contact;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class OwnsAddresses
- * @package Adiazm\Addresses\Traits
+ *
  * @property-read Collection|Address[]  $addresses
  * @property-read Collection|Contact[]  $contacts
  */
@@ -33,15 +32,15 @@ trait OwnsAddresses
     public function getBillingAddresses(): Collection|array
     {
         return $this->addresses()
-                    ->billing()
-                    ->get();
+            ->billing()
+            ->get();
     }
 
     /** @return Address[]|Collection */
     public function getShippingAddresses(): Collection|array
     {
         return $this->addresses()
-                    ->shipping()
-                    ->get();
+            ->shipping()
+            ->get();
     }
 }

@@ -2,19 +2,18 @@
 
 namespace Adiazm\Addresses\Traits;
 
+use Adiazm\Addresses\Exceptions\FailedValidationException;
+use Adiazm\Addresses\Models\Address;
+use Adiazm\Addresses\Models\Country;
 use Exception;
 use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
-use Illuminate\Database\Eloquent\Collection;
-
-use Adiazm\Addresses\Models\Address;
-use Adiazm\Addresses\Exceptions\FailedValidationException;
-use Adiazm\Addresses\Models\Country;
 
 /**
  * Class HasAddresses
- * @package Adiazm\Addresses\Traits
+ *
  * @property-read Collection|Address[]  $addresses
  */
 trait HasAddresses
@@ -60,37 +59,39 @@ trait HasAddresses
     public function getPrimaryAddress(string $direction = 'desc'): ?Address
     {
         return $this->addresses()
-                    ->primary()
-                    ->orderBy('is_primary', $direction)
-                    ->first();
+            ->primary()
+            ->orderBy('is_primary', $direction)
+            ->first();
     }
 
     public function getBillingAddress(string $direction = 'desc'): ?Address
     {
         return $this->addresses()
-                    ->billing()
-                    ->orderBy('is_billing', $direction)
-                    ->first();
+            ->billing()
+            ->orderBy('is_billing', $direction)
+            ->first();
     }
 
     public function getShippingAddress(string $direction = 'desc'): ?Address
     {
         return $this->addresses()
-                    ->shipping()
-                    ->orderBy('is_shipping', $direction)
-                    ->first();
+            ->shipping()
+            ->orderBy('is_shipping', $direction)
+            ->first();
     }
 
     /** @throws FailedValidationException */
     public function loadAddressAttributes(array $attributes): array
     {
         // return if no country given
-        if (! isset($attributes['country']))
+        if (! isset($attributes['country'])) {
             throw new FailedValidationException('[Addresses] No country code given.');
+        }
 
         // find country
-        if (! ($country = $this->findCountryByCode($attributes['country'])) || ! isset($country->id))
+        if (! ($country = $this->findCountryByCode($attributes['country'])) || ! isset($country->id)) {
             throw new FailedValidationException('[Addresses] Country not found, did you seed the countries table?');
+        }
 
         // unset country from attributes array
         unset($attributes['country']);
@@ -101,7 +102,7 @@ trait HasAddresses
 
         if ($validator->fails()) {
             $errors = $validator->errors()->all();
-            $error  = '[Addresses] '. implode(' ', $errors);
+            $error = '[Addresses] '.implode(' ', $errors);
 
             throw new FailedValidationException($error);
         }
@@ -110,16 +111,16 @@ trait HasAddresses
         return $attributes;
     }
 
-    function validateAddress(array $attributes): Validator
+    public function validateAddress(array $attributes): Validator
     {
         $rules = (new Address)->getValidationRules();
 
         return validator($attributes, $rules);
     }
 
-    function findCountryByCode(string $country_code): ?Country
+    public function findCountryByCode(string $country_code): ?Country
     {
         return Country::whereCountryCode($country_code)
-                      ->first();
+            ->first();
     }
 }

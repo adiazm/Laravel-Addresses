@@ -6,13 +6,12 @@ use Illuminate\Support\ServiceProvider;
 
 /**
  * Class AddressesServiceProvider
- * @package Adiazm\Addresses
  */
 class AddressesServiceProvider extends ServiceProvider
 {
     protected array $migrations = [
         'CreateAddressesTable' => 'create_addresses_table',
-        'CreateContactsTable'  => 'create_contacts_table',
+        'CreateContactsTable' => 'create_contacts_table',
     ];
 
     public function boot()
@@ -20,16 +19,16 @@ class AddressesServiceProvider extends ServiceProvider
         $this->handleConfig();
         $this->handleMigrations();
 
-        $this->loadTranslationsFrom(__DIR__ .'/../resources/lang', 'addresses');
+        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'addresses');
     }
 
-    /** @inheritdoc */
+    /** {@inheritdoc} */
     public function register()
     {
         //
     }
 
-    /** @inheritdoc */
+    /** {@inheritdoc} */
     public function provides(): array
     {
         return [];
@@ -37,7 +36,7 @@ class AddressesServiceProvider extends ServiceProvider
 
     private function handleConfig(): void
     {
-        $configPath = __DIR__ . '/../config/config.php';
+        $configPath = __DIR__.'/../config/config.php';
 
         $this->publishes([$configPath => config_path('address-config.php')]);
 
@@ -49,11 +48,10 @@ class AddressesServiceProvider extends ServiceProvider
         $count = 0;
         foreach ($this->migrations as $class => $file) {
             if (! class_exists($class)) {
-                $timestamp = date('Y_m_d_Hi'. sprintf('%02d', $count), time());
+                $timestamp = date('Y_m_d_Hi'.sprintf('%02d', $count), time());
 
                 $this->publishes([
-                    __DIR__ .'/../database/migrations/'. $file .'.php.stub' =>
-                        database_path('migrations/'. $timestamp .'_'. $file .'.php')
+                    __DIR__.'/../database/migrations/'.$file.'.php.stub' => database_path('migrations/'.$timestamp.'_'.$file.'.php'),
                 ], 'migrations');
 
                 $count++;
