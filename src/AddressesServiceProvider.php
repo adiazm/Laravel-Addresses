@@ -1,12 +1,12 @@
 <?php
 
-namespace Lecturize\Addresses;
+namespace Adiazm\Addresses;
 
 use Illuminate\Support\ServiceProvider;
 
 /**
  * Class AddressesServiceProvider
- * @package Lecturize\Addresses
+ * @package Adiazm\Addresses
  */
 class AddressesServiceProvider extends ServiceProvider
 {
@@ -51,9 +51,9 @@ class AddressesServiceProvider extends ServiceProvider
     {
         $configPath = __DIR__ . '/../config/config.php';
 
-        $this->publishes([$configPath => config_path('lecturize.php')]);
+        $this->publishes([$configPath => config_path('address-config.php')]);
 
-        $this->mergeConfigFrom($configPath, 'lecturize');
+        $this->mergeConfigFrom($configPath, 'address-config');
     }
 
     private function handleMigrations(): void

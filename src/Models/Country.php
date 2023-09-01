@@ -1,13 +1,13 @@
 <?php
 
-namespace Lecturize\Addresses\Models;
+namespace Adiazm\Addresses\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Webpatser\Countries\Countries;
 
 /**
  * Class Country
- * @package Lecturize\Addresses\Models
+ * @package Adiazm\Addresses\Models
  *
  * @property-read int  $id
  *

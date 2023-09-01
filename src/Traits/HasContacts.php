@@ -1,6 +1,6 @@
 <?php
 
-namespace Lecturize\Addresses\Traits;
+namespace Adiazm\Addresses\Traits;
 
 use Exception;
 use Illuminate\Contracts\Validation\Validator;
@@ -8,12 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Collection;
 
-use Lecturize\Addresses\Models\Contact;
-use Lecturize\Addresses\Exceptions\FailedValidationException;
+use Adiazm\Addresses\Models\Contact;
+use Adiazm\Addresses\Exceptions\FailedValidationException;
 
 /**
  * Class HasContacts
- * @package Lecturize\Addresses\Traits
+ * @package Adiazm\Addresses\Traits
  * @property Collection|Contact[]  $contacts
  */
 trait HasContacts

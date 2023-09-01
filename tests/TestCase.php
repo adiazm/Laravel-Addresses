@@ -1,8 +1,8 @@
 <?php
 
-namespace Lecturize\Addresses\Tests;
+namespace Adiazm\Addresses\Tests;
 
-use Lecturize\Addresses\AddressesServiceProvider;
+use Adiazm\Addresses\AddressesServiceProvider;
 
 class TestCase extends \Orchestra\Testbench\TestCase
 {

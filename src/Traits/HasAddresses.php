@@ -1,6 +1,6 @@
 <?php
 
-namespace Lecturize\Addresses\Traits;
+namespace Adiazm\Addresses\Traits;
 
 use Exception;
 use Illuminate\Contracts\Validation\Validator;
@@ -8,13 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Collection;
 
-use Lecturize\Addresses\Models\Address;
-use Lecturize\Addresses\Exceptions\FailedValidationException;
-use Lecturize\Addresses\Models\Country;
+use Adiazm\Addresses\Models\Address;
+use Adiazm\Addresses\Exceptions\FailedValidationException;
+use Adiazm\Addresses\Models\Country;
 
 /**
  * Class HasAddresses
- * @package Lecturize\Addresses\Traits
+ * @package Adiazm\Addresses\Traits
  * @property-read Collection|Address[]  $addresses
  */
 trait HasAddresses

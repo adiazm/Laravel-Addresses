@@ -1,6 +1,6 @@
-[![Latest Stable Version](https://poser.pugx.org/lecturize/laravel-addresses/v/stable)](https://packagist.org/packages/lecturize/laravel-addresses)
-[![Total Downloads](https://poser.pugx.org/lecturize/laravel-addresses/downloads)](https://packagist.org/packages/lecturize/laravel-addresses)
-[![License](https://poser.pugx.org/lecturize/laravel-addresses/license)](https://packagist.org/packages/lecturize/laravel-addresses)
+[![Latest Stable Version](https://poser.pugx.org/adiazm/laravel-addresses/v/stable)](https://packagist.org/packages/adiazm/laravel-addresses)
+[![Total Downloads](https://poser.pugx.org/adiazm/laravel-addresses/downloads)](https://packagist.org/packages/adiazm/laravel-addresses)
+[![License](https://poser.pugx.org/adiazm/laravel-addresses/license)](https://packagist.org/packages/adiazm/laravel-addresses)
 
 # Laravel Addresses
 
@@ -12,20 +12,20 @@ Require the package from your `composer.json` file
 
 ```php
 "require": {
-	"lecturize/laravel-addresses": "^1.1"
+	"adiazm/laravel-addresses": "^1.1"
 }
 ```
 
-and run `$ composer update` or both in one with `$ composer require lecturize/laravel-addresses`.
+and run `$ composer update` or both in one with `$ composer require adiazm/laravel-addresses`.
 
 ## Configuration & Migration
 
 ```bash
 $ php artisan vendor:publish --provider="Webpatser\Countries\CountriesServiceProvider"
-$ php artisan vendor:publish --provider="Lecturize\Addresses\AddressesServiceProvider"
+$ php artisan vendor:publish --provider="Adiazm\Addresses\AddressesServiceProvider"
 ```
 
-This will publish a `config/countries.php`, a `config/lecturize.php` and some migration files, that you'll have to run:
+This will publish a `config/countries.php`, a `config/address-config.php` and some migration files, that you'll have to run:
 
 ```bash
 $ php artisan countries:migration
@@ -39,11 +39,11 @@ Check out [Webpatser\Countries](https://github.com/webpatser/laravel-countries) 
 ## Usage
 
 First, add our `HasAddresses` trait to your model.
-        
+
 ```php
 <?php namespace App\Models;
 
-use Lecturize\Addresses\Traits\HasAddresses;
+use Adiazm\Addresses\Traits\HasAddresses;
 use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
@@ -127,7 +127,7 @@ First, add our `HasContacts` trait to your model.
 ```php
 <?php namespace App\Models;
 
-use Lecturize\Addresses\Traits\HasContacts;
+use Adiazm\Addresses\Traits\HasContacts;
 use Illuminate\Database\Eloquent\Model;
 
 class Team extends Model
@@ -154,7 +154,7 @@ $post->addContact([
 Above all, `addresses` and `contacts` can be connected with an optional One To Many relationship. Like so you could assign multiple contacts to an address and retrieve them like so:
 
 ```php
-use Lecturize\Addresses\Models\Address;
+use Adiazm\Addresses\Models\Address;
 
 $address = Address::find(1);
 $contacts = $address->contacts;
@@ -165,7 +165,7 @@ foreach ($contacts as $contact) {
 ```
 
 ```php
-use Lecturize\Addresses\Models\Address;
+use Adiazm\Addresses\Models\Address;
 
 $contact = Address::find(1)
                   ->contacts()
@@ -173,7 +173,7 @@ $contact = Address::find(1)
 ```
 
 ```php
-use Lecturize\Addresses\Models\Contact;
+use Adiazm\Addresses\Models\Contact;
 
 $contact = Contact::find(1);
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Lecturize\Addresses\Models;
+namespace Adiazm\Addresses\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class Contact
- * @package Lecturize\Addresses\Models
+ * @package Adiazm\Addresses\Models
  *
  * @property-read int  $id
  *
@@ -84,7 +84,7 @@ class Contact extends Model
     {
         parent::__construct($attributes);
 
-        $this->table = config('lecturize.contacts.table', 'contacts');
+        $this->table = config('address-config.contacts.table', 'contacts');
         $this->updateFillables();
     }
 
@@ -104,7 +104,7 @@ class Contact extends Model
     private function updateFillables(): void
     {
         $fillable = $this->fillable;
-        $columns  = preg_filter('/^/', 'is_', config('lecturize.addresses.columns', ['public', 'primary', 'billing', 'shipping']));
+        $columns  = preg_filter('/^/', 'is_', config('address-config.addresses.columns', ['public', 'primary', 'billing', 'shipping']));
 
         $this->fillable(array_merge($fillable, $columns));
     }
@@ -121,7 +121,7 @@ class Contact extends Model
 
     public static function getValidationRules(): array
     {
-        return config('lecturize.contacts.rules', []);
+        return config('address-config.contacts.rules', []);
     }
 
     public function getFullNameAttribute(?bool $show_salutation = null): string

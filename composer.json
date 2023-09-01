@@ -1,11 +1,10 @@
 {
-    "name": "lecturize/laravel-addresses",
+    "name": "adiazm/laravel-addresses",
     "description": "Simple address and contact management for Laravel.",
-    "homepage": "https://github.com/Lecturize/Laravel-Addresses",
+    "homepage": "https://github.com/adiazm/Laravel-Addresses",
     "license": "MIT",
     "type": "library",
     "keywords": [
-        "lecturize",
         "addresses",
         "contacts",
         "laravel"
@@ -37,12 +36,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Lecturize\\Addresses\\": "src"
+            "Adiazm\\Addresses\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Lecturize\\Addresses\\Test\\": "tests"
+            "Adiazm\\Addresses\\Test\\": "tests"
         }
     },
     "scripts": {
@@ -56,10 +55,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Lecturize\\Addresses\\AddressesServiceProvider"
+                "Adiazm\\Addresses\\AddressesServiceProvider"
             ],
             "aliases": {
-                "Address": "Lecturize\\Addresses\\Facades\\Address"
+                "Address": "Adiazm\\Addresses\\Facades\\Address"
             }
         },
         "branch-alias": {
@@ -67,7 +66,7 @@
         }
     },
     "support": {
-        "source": "https://github.com/Lecturize/Laravel-Addresses",
-        "issues": "https://github.com/Lecturize/Laravel-Addresses/issues"
+        "source": "https://github.com/adiazm/Laravel-Addresses",
+        "issues": "https://github.com/adiazm/Laravel-Addresses/issues"
     }
 }

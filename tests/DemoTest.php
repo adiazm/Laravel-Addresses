@@ -1,6 +1,6 @@
 <?php
 
-namespace Lecturize\Addresses\Tests;
+namespace Adiazm\Addresses\Tests;
 
 class DemoTest extends TestCase
 {

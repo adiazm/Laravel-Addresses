@@ -1,6 +1,6 @@
 <?php
 
-namespace Lecturize\Addresses\Models;
+namespace Adiazm\Addresses\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -10,11 +10,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-use Lecturize\Addresses\Traits\HasCountry;
+use Adiazm\Addresses\Traits\HasCountry;
 
 /**
  * Class Address
- * @package Lecturize\Addresses\Models
+ * @package Adiazm\Addresses\Models
  *
  * @property-read int  $id
  *
@@ -78,7 +78,7 @@ class Address extends Model
     {
         parent::__construct($attributes);
 
-        $this->table = config('lecturize.addresses.table', 'addresses');
+        $this->table = config('address-config.addresses.table', 'addresses');
         $this->updateFillables();
     }
 
@@ -95,7 +95,7 @@ class Address extends Model
         });
 
         static::saving(function($address) {
-            if (config('lecturize.addresses.geocode', false))
+            if (config('address-config.addresses.geocode', false))
                 $address->geocode();
         });
     }
@@ -103,7 +103,7 @@ class Address extends Model
     private function updateFillables(): void
     {
         $fillable = $this->fillable;
-        $columns  = preg_filter('/^/', 'is_', config('lecturize.addresses.columns', ['public', 'primary', 'billing', 'shipping']));
+        $columns  = preg_filter('/^/', 'is_', config('address-config.addresses.columns', ['public', 'primary', 'billing', 'shipping']));
 
         $this->fillable(array_merge($fillable, $columns));
     }
@@ -120,12 +120,12 @@ class Address extends Model
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(config('lecturize.addresses.users.model', config('auth.providers.users.model', 'App\Models\Users\User')));
+        return $this->belongsTo(config('address-config.addresses.users.model', config('auth.providers.users.model', 'App\Models\Users\User')));
     }
 
     public static function getValidationRules(): array
     {
-        $rules = config('lecturize.addresses.rules', [
+        $rules = config('address-config.addresses.rules', [
             'street'       => 'required|string|min:3|max:60',
             'street_extra' => 'nullable|string|min:3|max:60',
             'city'         => 'required|string|min:3|max:60',
@@ -134,7 +134,7 @@ class Address extends Model
             'country_id'   => 'required|integer',
         ]);
 
-        foreach (config('lecturize.addresses.flags', ['public', 'primary', 'billing', 'shipping']) as $flag)
+        foreach (config('address-config.addresses.flags', ['public', 'primary', 'billing', 'shipping']) as $flag)
             $rules['is_'.$flag] = 'boolean';
 
         return $rules;
